@@ -1,0 +1,44 @@
+{
+    "name": "moharrum/laravel-adminer",
+    "description": "Adminer database management tool for your Laravel application.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Khalid Moharrum",
+            "email": "khalid.moharram@gmail.com",
+            "homepage": "https://github.com/moharrum"
+        }
+    ],
+    "homepage": "https://github.com/moharrum/laravel-adminer",
+    "keywords": [
+        "i18n",
+        "adminer",
+        "phpmyadmin",
+        "database",
+        "editor",
+        "cms",
+        "laravel",
+        "moharrum"
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "~5|~6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Moharrum\\LaravelAdminer\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Moharrum\\LaravelAdminer\\LaravelAdminerServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    }
+}
