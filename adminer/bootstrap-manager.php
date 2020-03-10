@@ -100,6 +100,17 @@ function adminer_object()
 
     		return $return;
     	}
+
+        /**
+         * Print login form.
+         *
+    	 * @return null
+    	*/
+    	function loginForm() {
+    		parent::loginForm();
+
+    		echo '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+    	}
 	}
 
     return new LaravelAdminer($plugins);
