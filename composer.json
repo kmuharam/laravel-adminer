@@ -34,7 +34,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Moharrum\\LaravelAdminer\\LaravelAdminerServiceProvider"
+                "Moharrum\\LaravelAdminer\\Providers\\LaravelAdminerServiceProvider"
             ],
             "aliases": {
 
