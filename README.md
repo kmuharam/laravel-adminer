@@ -4,13 +4,14 @@
 
 ## Introduction
 
-This package is a wrapper around [Adminer](https://www.adminer.org), it makes [Adminer](https://www.adminer.org) easy to setup, configure, customize and use.
+This package is a wrapper around [Adminer](https://www.adminer.org), it makes [Adminer](https://www.adminer.org) easy to setup, configure, customize and use withing your [Laravel](https://laravel.com) application.
 
-* No `VerifyCsrfToken` middleware file modification is required.
+* [Adminer](https://www.adminer.org) version 4.7.6.
 * [Adminer](https://www.adminer.org) plugins are easily enabled or disabled.
 * Alternative designs shipped with this package, [take a look at available designs](https://github.com/vrana/adminer/tree/master/designs).
 * Also supports custom designs.
 * [Adminer](https://www.adminer.org) localizations.
+* No `VerifyCsrfToken` middleware file modification is required.
 
 ### Installing
 
@@ -73,7 +74,7 @@ Referring to the configuration file, we have three main sections.
 ## TODO List
 
 * Add more plugins.
-* Enabled [Adminer editor](https://www.adminer.org/editor) along side the database manager.
+* Enable [Adminer editor](https://www.adminer.org/editor) along side the database manager.
 
 ## License
 
