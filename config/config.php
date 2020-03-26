@@ -89,6 +89,35 @@ return [
             // Display JSON values as table in edit.
             'enabled' => true,
         ],
+        'tinymce' => [
+            // Edit all fields containing "_html" by HTML editor TinyMCE and display the HTML in select.
+            'enabled' => false,
+            'params' => [
+                // string, path to include tinymce js files.
+                'path' => asset('/plugins/tinymce/tiny_mce.min.js'),
+                // Or, see https://www.tiny.cloud/get-tiny/
+                // 'path' => 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js',
+            ],
+        ],
+        'version-noverify' => [
+            // Disable version checker.
+            'enabled' => true,
+        ],
+        'wymeditor' => [
+            // Edit all fields containing "_html" by HTML editor WYMeditor and display the HTML in select.
+            'enabled' => false,
+            'params' => [
+                // array, path to include jQuery and wmyeditor js files.
+                'scripts' => [
+                    asset('/plugins/jquery/jquery.min.js'),
+                    asset('/plugins/wymeditor/jquery.wymeditor.min.js'),
+                ],
+                // string, wmyeditor custom options
+                // in format "skin: 'custom', preInit: function () { }"
+                // see http://www.wymeditor.org
+                'options' => '',
+            ],
+        ],
     ],
 
 ];

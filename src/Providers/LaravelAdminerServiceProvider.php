@@ -54,7 +54,7 @@ class LaravelAdminerServiceProvider extends ServiceProvider
     {
         $this->bindManagerRoutes();
 
-        $this->bindEditorRoutes();
+        // $this->bindEditorRoutes();
     }
 
     protected function bindManagerRoutes(): void

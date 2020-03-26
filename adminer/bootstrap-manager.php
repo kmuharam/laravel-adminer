@@ -70,26 +70,46 @@ function adminer_object()
         $plugins[] = new AdminerJsonColumn();
     }
 
-    class LaravelAdminer extends AdminerPlugin {
+    if (config('laravel-adminer.plugins.tinymce.enabled')) {
+        $path = config('laravel-adminer.plugins.tinymce.params.path');
+
+        $plugins[] = new AdminerTinymce($path);
+    }
+
+    if (config('laravel-adminer.plugins.version-noverify.enabled')) {
+        $plugins[] = new AdminerVersionNoverify();
+    }
+
+    if (config('laravel-adminer.plugins.wymeditor.enabled')) {
+        $scripts = config('laravel-adminer.plugins.wymeditor.params.scripts');
+        $options = config('laravel-adminer.plugins.wymeditor.params.options');
+
+        $plugins[] = new AdminerWymeditor($scripts, $options);
+    }
+
+    class LaravelAdminer extends AdminerPlugin
+    {
         /**
          * Name in title and navigation
          *
     	 * @return string HTML code
     	 */
-		function name() {
-			$name = config('laravel-adminer.application_defaults.name.use_env_default') ?
+        public function name()
+        {
+            $name = config('laravel-adminer.application_defaults.name.use_env_default') ?
             config('app.name')
             : config('laravel-adminer.application_defaults.name.custom');
 
             return "<a href='" . route(config('laravel-adminer.manager.route.name')) . "' id='h1'>" . e($name) . "</a>";
-		}
+        }
 
         /**
          * Get URLs of the CSS files
          *
     	 * @return array of strings
     	 */
-    	function css() {
+        public function css()
+        {
             $return = array();
 
             $shouldLoadCustomStyle = (bool)config('laravel-adminer.manager.style');
@@ -98,20 +118,21 @@ function adminer_object()
                 $return[] = "/" . config('laravel-adminer.manager.style') . "?v=" . crc32(file_get_contents(public_path(config('laravel-adminer.manager.style'))));
             }
 
-    		return $return;
-    	}
+            return $return;
+        }
 
         /**
          * Print login form.
          *
     	 * @return null
     	*/
-    	function loginForm() {
-    		parent::loginForm();
+        public function loginForm()
+        {
+            parent::loginForm();
 
-    		echo '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-    	}
-	}
+            echo '<input type="hidden" name="_token" value="' . csrf_token() . '">';
+        }
+    }
 
     return new LaravelAdminer($plugins);
 }

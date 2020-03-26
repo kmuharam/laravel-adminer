@@ -2,18 +2,33 @@
 
 [Adminer](https://www.adminer.org) database management tool for your [Laravel](https://laravel.com) application.
 
+---
+
+## Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Available plugins](#plugins)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
+---
+
 ## Introduction
 
-This package is a wrapper around [Adminer](https://www.adminer.org), it makes [Adminer](https://www.adminer.org) easy to setup, configure, customize and use withing your [Laravel](https://laravel.com) application.
+This package is a wrapper around [Adminer](https://www.adminer.org), it makes [Adminer](https://www.adminer.org) easy to setup, configure, customize and use within your [Laravel](https://laravel.com) application.
 
-* [Adminer](https://www.adminer.org) version 4.7.6.
-* [Adminer](https://www.adminer.org) plugins are easily enabled or disabled.
-* Alternative designs shipped with this package, [take a look at available designs](https://github.com/vrana/adminer/tree/master/designs).
-* Also supports custom designs.
-* [Adminer](https://www.adminer.org) localizations.
-* No `VerifyCsrfToken` middleware file modification is required.
+- [Adminer](https://www.adminer.org) version 4.7.6.
+- [Adminer](https://www.adminer.org) plugins are easily enabled or disabled.
+- Alternative designs shipped with this package, [take a look at available designs](https://github.com/vrana/adminer/tree/master/designs).
+- Also supports custom designs, you may place your style file in the `public` directory and reference it in the `laravel-adminer` config file.
+- [Adminer](https://www.adminer.org) localizations.
+- No `VerifyCsrfToken` middleware file modification is required.
 
-### Installing
+---
+
+## Installation
 
 Install the package via composer:
 
@@ -33,6 +48,8 @@ Finally, you must publish the configuration file:
 ```php
     php artisan vendor:publish --provider="Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider"
 ```
+
+---
 
 ## Usage
 
@@ -69,13 +86,39 @@ Referring to the configuration file, we have three main sections.
     ],
 ```
 
-3. Finally, a list of plugins is available in the `plugins` section, the list is not yet complete with all available [Adminer](https://www.adminer.org) plugins.
+3. Finally, a list of plugins is available in the `plugins` section, the list is not yet complete with all available [Adminer plugins](https://www.adminer.org/en/plugins/).
 
-## TODO List
+---
 
-* Add more plugins.
-* Enable [Adminer editor](https://www.adminer.org/editor) along side the database manager.
+## Available plugins
+
+| Name | Notes |
+| ------ | ----------- |
+| dump-alter   | Exports one database (e.g. development) so that it can be synced with other database (e.g. production). |
+| dump-bz2 | Dump to Bzip2 format. |
+| dump-date | Include current date and time in export filename. |
+| dump-json | Dump to JSON format. |
+| dump-xml | Dump to XML format in structure `<database name=""><table name=""><column name="">` value. |
+| dump-zip | Dump to ZIP format. |
+| edit-foreign | Select foreign key in edit form. |
+| edit-textarea | Use `<textarea>` for char and varchar. |
+| enum-option | Use `<select><option>` for enum edit instead of `<input type="radio">`. |
+| enum-types | Use `<select><option>` for enum edit instead of regular input text on enum type in PostgreSQL. |
+| foreign-system | Link system tables (in mysql and information_schema databases) by foreign keys. |
+| frames | Allow using Adminer inside a frame (disables ClickJacking protection). |
+| json-column | Display JSON values as table in edit. |
+| tinymce | Edit all fields containing "_html" by HTML editor TinyMCE and display the HTML in select. |
+| version-noverify | Disable version checker. |
+| wymeditor | Edit all fields containing "_html" by HTML editor WYMeditor and display the HTML in select. |
+
+---
+
+## Troubleshooting
+
+If you encounter a `TokenMismatchException`  when opening the page for the first time, or when taking an action after session has expired try `refreshing the page`.
+
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
