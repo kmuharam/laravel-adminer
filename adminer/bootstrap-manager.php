@@ -14,6 +14,34 @@ function adminer_object()
 
     $plugins = array();
 
+    if (config('laravel-adminer.plugins.database-hide.enabled')) {
+        $databases = config('laravel-adminer.plugins.database-hide.params.databases');
+
+        $plugins[] = new AdminerDatabaseHide($databases);
+    }
+
+    if (config('laravel-adminer.plugins.designs.enabled')) {
+        $directory = public_path(config('laravel-adminer.plugins.designs.params.designs_path'));
+
+        $scannedDirectory = array_diff(scandir($directory), ['..', '.']);
+
+        $designs = [];
+
+        foreach ($scannedDirectory as $scan) {
+            $pathToDirectory = public_path(config('laravel-adminer.plugins.designs.params.designs_path'));
+            $pathToDirectory .= DIRECTORY_SEPARATOR . $scan;
+
+            if (is_dir($pathToDirectory)) {
+                $url = config('laravel-adminer.plugins.designs.params.designs_path');
+                $url .= DIRECTORY_SEPARATOR . $scan . DIRECTORY_SEPARATOR . 'adminer.css';
+
+                $designs[asset($url)] = $scan;
+            }
+        }
+
+        $plugins[] = new AdminerDesigns($designs);
+    }
+
     if (config('laravel-adminer.plugins.dump-alter.enabled')) {
         $plugins[] = new AdminerDumpAlter();
     }

@@ -1,15 +1,16 @@
 # Laravel Adminer
 
-[Adminer](https://www.adminer.org) database management tool for your [Laravel](https://laravel.com) application.
+> [Adminer](https://www.adminer.org) database management tool for your [Laravel](https://laravel.com) application.
 
 ---
 
-## Contents
+## Table of Contents
 
 - [Introduction](#introduction)
+- [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Available plugins](#plugins)
+- [Available plugins](#available-plugins)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 
@@ -17,13 +18,20 @@
 
 ## Introduction
 
+> What is Adminer?
+
+Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. For more information [visit Adminer website](https://www.adminer.org).
+
+> What is Laravel Adminer?
+
 This package is a wrapper around [Adminer](https://www.adminer.org), it makes [Adminer](https://www.adminer.org) easy to setup, configure, customize and use within your [Laravel](https://laravel.com) application.
 
-- [Adminer](https://www.adminer.org) version 4.7.6.
-- [Adminer](https://www.adminer.org) plugins are easily enabled or disabled.
-- Alternative designs shipped with this package, [take a look at available designs](https://github.com/vrana/adminer/tree/master/designs).
-- Also supports custom designs, you may place your style file in the `public` directory and reference it in the `laravel-adminer` config file.
-- [Adminer](https://www.adminer.org) localizations.
+## Features
+
+- Current [Adminer](https://www.adminer.org) version used is: `4.7.6`.
+- Plugins are integrated easily.
+- Alternative designs shipped with this package.
+- Custom designs are also supported and can be added easily.
 - No `VerifyCsrfToken` middleware file modification is required.
 
 ---
@@ -43,7 +51,7 @@ Edit `config/app.php`, add package service provider (ignore this step if you hav
     ]
 ```
 
-Finally, you must publish the configuration file:
+Finally, publish the configuration file:
 
 ```php
     php artisan vendor:publish --provider="Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider"
@@ -53,9 +61,9 @@ Finally, you must publish the configuration file:
 
 ## Usage
 
-Referring to the configuration file, we have three main sections.
+- **Application name**
 
-1. Application name, in this section you may specify if you want [Adminer](https://www.adminer.org) to display application name from `.env` file or you may specify a custom value:
+    You may specify if you want Laravel Adminer to display application name from `.env` file or you may specify a custom value:
 
 ```php
     'application_defaults' => [
@@ -67,7 +75,9 @@ Referring to the configuration file, we have three main sections.
     ],
 ```
 
-2. Database manager section, `enabled` is used to enable or disable automatic route register, if you wish to register [Adminer](https://www.adminer.org) routes manually, set `enabled` to `false`. Additionally, you must specify both route `name` and `path` in the `route` section. Optionally, you may specify an alternative design in the `style` section.
+- **Manager**
+
+    `enabled` is used to enable or disable automatic route registration, if you wish to register your routes manually, set `enabled` to `false`. Additionally, you must specify route `name` and `path` in the `route` section. Optionally, you may specify an alternative design in the `style` section.
 
 ```php
     'manager' => [
@@ -86,36 +96,73 @@ Referring to the configuration file, we have three main sections.
     ],
 ```
 
-3. Finally, a list of plugins is available in the `plugins` section, the list is not yet complete with all available [Adminer plugins](https://www.adminer.org/en/plugins/).
+- **Plugins**
+
+    A list of plugins is available in the `plugins` section, the list is not yet complete with all [Adminer plugins](https://www.adminer.org/en/plugins/).
 
 ---
 
 ## Available plugins
 
-| Name | Notes |
-| ------ | ----------- |
-| dump-alter   | Exports one database (e.g. development) so that it can be synced with other database (e.g. production). |
-| dump-bz2 | Dump to Bzip2 format. |
-| dump-date | Include current date and time in export filename. |
-| dump-json | Dump to JSON format. |
-| dump-xml | Dump to XML format in structure `<database name=""><table name=""><column name="">` value. |
-| dump-zip | Dump to ZIP format. |
-| edit-foreign | Select foreign key in edit form. |
-| edit-textarea | Use `<textarea>` for char and varchar. |
-| enum-option | Use `<select><option>` for enum edit instead of `<input type="radio">`. |
-| enum-types | Use `<select><option>` for enum edit instead of regular input text on enum type in PostgreSQL. |
-| foreign-system | Link system tables (in mysql and information_schema databases) by foreign keys. |
-| frames | Allow using Adminer inside a frame (disables ClickJacking protection). |
-| json-column | Display JSON values as table in edit. |
-| tinymce | Edit all fields containing "_html" by HTML editor TinyMCE and display the HTML in select. |
-| version-noverify | Disable version checker. |
-| wymeditor | Edit all fields containing "_html" by HTML editor WYMeditor and display the HTML in select. |
+- **database-hide**
+    Hide some databases from the interface - just to improve design, not a security plugin.
+
+- **designs**
+    Allow switching designs.
+
+- **dump-alter**
+    Exports one database (e.g. development) so that it can be synced with other database (e.g. production).
+
+- **dump-bz2**
+    Dump to Bzip2 format.
+
+- **dump-date**
+    Include current date and time in export filename.
+
+- **dump-json**
+    Dump to JSON format.
+
+- **dump-xml**
+    Dump to XML format in structure `<database name=""><table name=""><column name="">` value.
+
+- **dump-zip**
+    Dump to ZIP format.
+
+- **edit-foreign**
+    Select foreign key in edit form.
+
+- **edit-textarea**
+    Use `<textarea>` for char and varchar.
+
+- **enum-option**
+    Use `<select><option>` for enum edit instead of `<input type="radio">`.
+
+- **enum-types**
+    Use `<select><option>` for enum edit instead of regular input text on enum type in PostgreSQL.
+
+- **foreign-system**
+    Link system tables (in mysql and information_schema databases) by foreign keys.
+
+- **frames**
+    Allow using Adminer inside a frame (disables ClickJacking protection).
+
+- **json-column**
+    Display JSON values as table in edit.
+
+- **tinymce**
+    Edit all fields containing `_html` by HTML editor TinyMCE and display the HTML in select.
+
+- **version-noverify**
+    Disable version checker.
+
+- **wymeditor**
+    Edit all fields containing `_html` by HTML editor WYMeditor and display the HTML in select.
 
 ---
 
 ## Troubleshooting
 
-If you encounter a `TokenMismatchException`  when opening the page for the first time, or when taking an action after session has expired try `refreshing the page`.
+If you encounter a `TokenMismatchException`  when opening the page for the first time, or when taking an action after session has expired `refresh the page`.
 
 ---
 

@@ -30,6 +30,22 @@ return [
     ],
 
     'plugins' => [
+        'database-hide' => [
+            // Hide some databases from the interface - just to improve design, not a security plugin.
+            'enabled' => false,
+            'params' => [
+                // array, case insensitive database names in values.
+                'databases' => [],
+            ],
+        ],
+        'designs' => [
+            // Allow switching designs.
+            'enabled' => false,
+            'params' => [
+                // string, path to the directory containing styles.
+                'designs_path' => 'vendor/laravel-adminer/styles',
+            ],
+        ],
         'dump-alter' => [
             // Exports one database (e.g. development) so that it can be synced with other database (e.g. production).
             'enabled' => false,
