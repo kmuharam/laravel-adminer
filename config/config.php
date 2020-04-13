@@ -105,6 +105,34 @@ return [
             // Display JSON values as table in edit.
             'enabled' => true,
         ],
+        'slugify' => [
+            // Prefill field containing "_slug" with slugified value of a previous field (JavaScript).
+            'enabled' => false,
+            // function __construct($from = 'áčďéěíňóřšťúůýž', $to = 'acdeeinorstuuyz')
+            'params' => [
+                // string, find these characters...
+                'from' => null, // Leave null to use plugin defaults.
+                // string, ...and replace them by these
+                'to' => null, // Leave null to use plugin defaults.
+            ],
+        ],
+        'sql-log' => [
+            // Log all queries to SQL file.
+            // Files are stored in storage_path('adminer') / {$database_name}.sql
+            'enabled' => true,
+            'params' => [
+                // string, defaults to "$database.sql".
+                'filename' => '',
+            ],
+        ],
+        'struct-comments' => [
+            // Show comments of sql structure in more places (mainly where you edit things).
+            'enabled' => true,
+        ],
+        'tables-filter' => [
+            // Filter names in tables list.
+            'enabled' => false,
+        ],
         'tinymce' => [
             // Edit all fields containing "_html" by HTML editor TinyMCE and display the HTML in select.
             'enabled' => false,
@@ -114,6 +142,10 @@ return [
                 // Or, see https://www.tiny.cloud/get-tiny/
                 // 'path' => 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js',
             ],
+        ],
+        'translation' => [
+            // Translate all table and field comments, enum and set values from the translation table (automatically inserts new translations).
+            'enabled' => false,
         ],
         'version-noverify' => [
             // Disable version checker.

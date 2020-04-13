@@ -98,10 +98,39 @@ function adminer_object()
         $plugins[] = new AdminerJsonColumn();
     }
 
+    if (config('laravel-adminer.plugins.slugify.enabled')) {
+        $from = config('laravel-adminer.plugins.slugify.params.from');
+        $to = config('laravel-adminer.plugins.slugify.params.to');
+
+        if (! empty($from) && ! empty($to)) {
+            $plugins[] = new AdminerSlugify($from, $to);
+        } else {
+            $plugins[] = new AdminerSlugify();
+        }
+    }
+
+    if (config('laravel-adminer.plugins.sql-log.enabled')) {
+        $filename = config('laravel-adminer.plugins.sql-log.params.filename');
+
+        $plugins[] = new AdminerSqlLog($filename);
+    }
+
+    if (config('laravel-adminer.plugins.struct-comments.enabled')) {
+        $plugins[] = new AdminerStructComments();
+    }
+
+    if (config('laravel-adminer.plugins.tables-filter.enabled')) {
+        $plugins[] = new AdminerTablesFilter();
+    }
+
     if (config('laravel-adminer.plugins.tinymce.enabled')) {
         $path = config('laravel-adminer.plugins.tinymce.params.path');
 
         $plugins[] = new AdminerTinymce($path);
+    }
+
+    if (config('laravel-adminer.plugins.translation.enabled')) {
+        $plugins[] = new AdminerTranslation();
     }
 
     if (config('laravel-adminer.plugins.version-noverify.enabled')) {

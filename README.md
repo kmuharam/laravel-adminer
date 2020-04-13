@@ -2,25 +2,22 @@
 
 > [Adminer](https://www.adminer.org) database management tool for your [Laravel](https://laravel.com) application.
 
----
-
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
+- [CSRF token middleware](#csrf-token-middleware)
 - [Usage](#usage)
 - [Available plugins](#available-plugins)
-- [Troubleshooting](#troubleshooting)
+- [Available designs](#available-designs)
 - [License](#license)
-
----
 
 ## Introduction
 
 > What is Adminer?
 
-Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. For more information [visit Adminer website](https://www.adminer.org).
+Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. For more information [visit Adminer website](https://www.adminer.org). Adminer is available for MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Firebird, SimpleDB, Elasticsearch and MongoDB.
 
 > What is Laravel Adminer?
 
@@ -33,8 +30,6 @@ This package is a wrapper around [Adminer](https://www.adminer.org), it makes [A
 - Alternative designs shipped with this package.
 - Custom designs are also supported and can be added easily.
 - No `VerifyCsrfToken` middleware file modification is required.
-
----
 
 ## Installation
 
@@ -57,7 +52,9 @@ Finally, publish the configuration file:
     php artisan vendor:publish --provider="Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider"
 ```
 
----
+## CSRF token middleware
+
+If you encounter a `TokenMismatchException`  when opening the page for the first time, or when taking an action after session has expired `refresh the page`.
 
 ## Usage
 
@@ -99,8 +96,6 @@ Finally, publish the configuration file:
 - **Plugins**
 
     A list of plugins is available in the `plugins` section, the list is not yet complete with all [Adminer plugins](https://www.adminer.org/en/plugins/).
-
----
 
 ## Available plugins
 
@@ -149,8 +144,23 @@ Finally, publish the configuration file:
 - **json-column**
     Display JSON values as table in edit.
 
+- **slugify**
+    Prefill field containing `_slug` with slugified value of a previous field (JavaScript).
+
+- **sql-log**
+    Log all queries to SQL file.
+
+- **struct-comments**
+    Show comments of sql structure in more places (mainly where you edit things).
+
+- **tables-filter**
+    Filter names in tables list.
+
 - **tinymce**
     Edit all fields containing `_html` by HTML editor TinyMCE and display the HTML in select.
+
+- **translation**
+    Translate all table and field comments, enum and set values from the translation table (automatically inserts new translations).
 
 - **version-noverify**
     Disable version checker.
@@ -158,13 +168,38 @@ Finally, publish the configuration file:
 - **wymeditor**
     Edit all fields containing `_html` by HTML editor WYMeditor and display the HTML in select.
 
----
+## Available designs
 
-## Troubleshooting
+To view all designs with screenshots [click here](docs/DESIGNS.md).
 
-If you encounter a `TokenMismatchException`  when opening the page for the first time, or when taking an action after session has expired `refresh the page`.
-
----
+- **arcs-material**
+- **brade**
+- **bueltge**
+- **cvicebni-ubor**
+- **esterka**
+- **flat**
+- **galkaev**
+- **haeckel**
+- **hever**
+- **jukin**
+- **kahi**
+- **konya**
+- **lucas-sandery**
+- **mancave**
+- **mancave-hever**
+- **mvt**
+- **nette**
+- **ng9**
+- **nicu**
+- **pappu687**
+- **paranoiq**
+- **pepa-linha**
+- **pepa-linha-dark**
+- **pilot**
+- **pokorny**
+- **price**
+- **rmsoft**
+- **rmsoft_blue**
 
 ## License
 
