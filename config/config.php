@@ -199,7 +199,7 @@ return [
             'enabled' => false,
             'params' => [
                 // string, path to include tinymce js files.
-                'path' => asset('/plugins/tinymce/tiny_mce.min.js'),
+                'path' => 'https://example.com/plugins/tinymce/tiny_mce.min.js',
                 // Or, see https://www.tiny.cloud/get-tiny/
                 // 'path' => 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js',
             ],
@@ -218,8 +218,8 @@ return [
             'params' => [
                 // array, path to include jQuery and wmyeditor js files.
                 'scripts' => [
-                    asset('/plugins/jquery/jquery.min.js'),
-                    asset('/plugins/wymeditor/jquery.wymeditor.min.js'),
+                    'https://example.com/plugins/jquery/jquery.min.js',
+                    'https://example.com/plugins/wymeditor/jquery.wymeditor.min.js',
                 ],
                 // string, wmyeditor custom options
                 // in format "skin: 'custom', preInit: function () { }"
