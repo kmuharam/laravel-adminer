@@ -12,7 +12,7 @@ function adminer_object()
         include_once "{$filename}";
     }
 
-    $plugins = array();
+    $plugins = [];
 
     if (config('laravel-adminer.plugins.database-hide.enabled')) {
         $databases = config('laravel-adminer.plugins.database-hide.params.databases');
@@ -195,4 +195,4 @@ function adminer_object()
 }
 
 // include original Adminer
-include __DIR__ . DIRECTORY_SEPARATOR . 'manager' . DIRECTORY_SEPARATOR . 'adminer-4.7.6.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'manager' . DIRECTORY_SEPARATOR . 'adminer-4.7.6.php';

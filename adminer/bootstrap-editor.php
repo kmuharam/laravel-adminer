@@ -12,47 +12,180 @@ function adminer_object()
         include_once "{$filename}";
     }
 
-    // $class = "AdminerTranslation";
+    $plugins = [];
 
-    $plugins = array(
-        // specify enabled plugins here
-        // new AdminerDumpXml,
-        // new AdminerTinymce,
-        // new AdminerFileUpload("data/"),
-        // new AdminerSlugify,
-        // new $class,
-        // new AdminerForeignSystem,
-    );
+    if (config('laravel-adminer.plugins.database-hide.enabled')) {
+        $databases = config('laravel-adminer.plugins.database-hide.params.databases');
 
-    class LaravelAdminer extends AdminerPlugin {
+        $plugins[] = new AdminerDatabaseHide($databases);
+    }
+
+    if (config('laravel-adminer.plugins.designs.enabled')) {
+        $directory = public_path(config('laravel-adminer.plugins.designs.params.designs_path'));
+
+        $scannedDirectory = array_diff(scandir($directory), ['..', '.']);
+
+        $designs = [];
+
+        foreach ($scannedDirectory as $scan) {
+            $pathToDirectory = public_path(config('laravel-adminer.plugins.designs.params.designs_path'));
+            $pathToDirectory .= DIRECTORY_SEPARATOR . $scan;
+
+            if (is_dir($pathToDirectory)) {
+                $url = config('laravel-adminer.plugins.designs.params.designs_path');
+                $url .= DIRECTORY_SEPARATOR . $scan . DIRECTORY_SEPARATOR . 'adminer.css';
+
+                $designs[asset($url)] = $scan;
+            }
+        }
+
+        $plugins[] = new AdminerDesigns($designs);
+    }
+
+    if (config('laravel-adminer.plugins.dump-alter.enabled')) {
+        $plugins[] = new AdminerDumpAlter();
+    }
+
+    if (config('laravel-adminer.plugins.dump-bz2.enabled')) {
+        $plugins[] = new AdminerDumpBz2();
+    }
+
+    if (config('laravel-adminer.plugins.dump-date.enabled')) {
+        $plugins[] = new AdminerDumpDate();
+    }
+
+    if (config('laravel-adminer.plugins.dump-json.enabled')) {
+        $plugins[] = new AdminerDumpJson();
+    }
+
+    if (config('laravel-adminer.plugins.dump-xml.enabled')) {
+        $plugins[] = new AdminerDumpXml();
+    }
+
+    if (config('laravel-adminer.plugins.dump-zip.enabled')) {
+        $plugins[] = new AdminerDumpZip();
+    }
+
+    if (config('laravel-adminer.plugins.edit-foreign.enabled')) {
+        $limit = config('laravel-adminer.plugins.edit-foreign.params.limit');
+
+        $plugins[] = new AdminerEditForeign($limit);
+    }
+
+    if (config('laravel-adminer.plugins.edit-textarea.enabled')) {
+        $plugins[] = new AdminerEditTextarea();
+    }
+
+    if (config('laravel-adminer.plugins.enum-option.enabled')) {
+        $plugins[] = new AdminerEnumOption();
+    }
+
+    if (config('laravel-adminer.plugins.enum-types.enabled')) {
+        $plugins[] = new AdminerEnumTypes();
+    }
+
+    if (config('laravel-adminer.plugins.foreign-system.enabled')) {
+        $plugins[] = new AdminerForeignSystem();
+    }
+
+    if (config('laravel-adminer.plugins.frames.enabled')) {
+        $sameOrigin = config('laravel-adminer.plugins.frames.params.same_origin');
+
+        $plugins[] = new AdminerFrames($sameOrigin);
+    }
+
+    if (config('laravel-adminer.plugins.json-column.enabled')) {
+        $plugins[] = new AdminerJsonColumn();
+    }
+
+    if (config('laravel-adminer.plugins.slugify.enabled')) {
+        $from = config('laravel-adminer.plugins.slugify.params.from');
+        $to = config('laravel-adminer.plugins.slugify.params.to');
+
+        if (! empty($from) && ! empty($to)) {
+            $plugins[] = new AdminerSlugify($from, $to);
+        } else {
+            $plugins[] = new AdminerSlugify();
+        }
+    }
+
+    if (config('laravel-adminer.plugins.sql-log.enabled')) {
+        $filename = config('laravel-adminer.plugins.sql-log.params.filename');
+
+        $plugins[] = new AdminerSqlLog($filename);
+    }
+
+    if (config('laravel-adminer.plugins.struct-comments.enabled')) {
+        $plugins[] = new AdminerStructComments();
+    }
+
+    if (config('laravel-adminer.plugins.tables-filter.enabled')) {
+        $plugins[] = new AdminerTablesFilter();
+    }
+
+    if (config('laravel-adminer.plugins.tinymce.enabled')) {
+        $path = config('laravel-adminer.plugins.tinymce.params.path');
+
+        $plugins[] = new AdminerTinymce($path);
+    }
+
+    if (config('laravel-adminer.plugins.translation.enabled')) {
+        $plugins[] = new AdminerTranslation();
+    }
+
+    if (config('laravel-adminer.plugins.version-noverify.enabled')) {
+        $plugins[] = new AdminerVersionNoverify();
+    }
+
+    if (config('laravel-adminer.plugins.wymeditor.enabled')) {
+        $scripts = config('laravel-adminer.plugins.wymeditor.params.scripts');
+        $options = config('laravel-adminer.plugins.wymeditor.params.options');
+
+        $plugins[] = new AdminerWymeditor($scripts, $options);
+    }
+
+    class LaravelAdminer extends AdminerPlugin
+    {
         /**
          * Name in title and navigation
          *
     	 * @return string HTML code
     	 */
-		function name() {
-			$name = config('laravel-adminer.application_defaults.name.use_env_default') ?
+        public function name()
+        {
+            $name = config('laravel-adminer.application_defaults.name.use_env_default') ?
             config('app.name')
             : config('laravel-adminer.application_defaults.name.custom');
 
             return "<a href='" . route(config('laravel-adminer.editor.route.name')) . "' id='h1'>" . e($name) . "</a>";
-		}
+        }
 
         /**
          * Get URLs of the CSS files
          *
     	 * @return array of strings
     	 */
-    	function css() {
+        public function css()
+        {
             $return = array();
 
-    		return $return;
-    	}
+            $shouldLoadCustomStyle = (bool)config('laravel-adminer.editor.style');
 
-        function database() {
-            $database = config('database.connections.' . $connection . '.database');
+            if ($shouldLoadCustomStyle && file_exists(public_path(config('laravel-adminer.editor.style')))) {
+                $return[] = "/" . config('laravel-adminer.editor.style') . "?v=" . crc32(file_get_contents(public_path(config('laravel-adminer.editor.style'))));
+            }
 
-            return $database;
+            return $return;
+        }
+
+        /**
+         * Identifier of selected database.
+         *
+    	 * @return string
+    	 */
+        public function database()
+        {
+            return config('laravel-adminer.editor.parameters.database');
         }
 
         /**
@@ -60,22 +193,22 @@ function adminer_object()
          *
     	 * @return null
     	 */
-         function loginForm() {
-     		echo "<table cellspacing='0' class='layout'>\n";
+        public function loginForm()
+        {
+            echo "<table cellspacing='0' class='layout'>\n";
 
-            $connection = config('database.default');
-            $database = config('database.connections.' . $connection . '.database');
-            $server = config('database.connections.' . $connection . '.host');
-            $port = config('database.connections.' . $connection . '.port');
+            $connection = config('laravel-adminer.editor.parameters.connection');
+            $database = config('laravel-adminer.editor.parameters.database');
+            $server = config('laravel-adminer.editor.parameters.host');
+            $port = config('laravel-adminer.editor.parameters.port');
 
-
-     		echo $this->loginFormField('username', '<tr><th>' . lang('Username') . '<td>', '<input type="hidden" name="auth[driver]" value="' . $connection . '"><input type="hidden" name="auth[db]" value="' . $database . '"><input type="hidden" name="auth[server]" value="' . $server . ':' . $port . '"><input name="auth[username]" id="username" value="' . h($_GET["username"]) . '" autocomplete="username" autocapitalize="off">' . script("focus(qs('#username')); qs('#username').form['auth[driver]'].onchange();"));
-     		echo $this->loginFormField('password', '<tr><th>' . lang('Password') . '<td>', '<input type="password" name="auth[password]" autocomplete="current-password">' . "\n");
-     		echo "</table>\n";
-     		echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
-     		echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
-     	}
-	}
+            echo $this->loginFormField('username', '<tr><th>' . lang('Username') . '<td>', '<input type="hidden" name="auth[driver]" value="' . $connection . '"><input type="hidden" name="auth[db]" value="' . $database . '"><input type="hidden" name="_token" value="' . csrf_token() . '"><input type="hidden" name="auth[server]" value="' . $server . ':' . $port . '"><input name="auth[username]" id="username" value="' . h($_GET["username"]) . '" autocomplete="username" autocapitalize="off">' . script("focus(qs('#username')); qs('#username').form['auth[driver]'].onchange();"));
+            echo $this->loginFormField('password', '<tr><th>' . lang('Password') . '<td>', '<input type="password" name="auth[password]" autocomplete="current-password">' . "\n");
+            echo "</table>\n";
+            echo "<p><input type='submit' value='" . lang('Login') . "'>\n";
+            echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
+        }
+    }
 
     return new LaravelAdminer($plugins);
 }

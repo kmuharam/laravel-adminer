@@ -6,6 +6,15 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application defaults
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the name of your application.
+    |
+    */
+
     'application_defaults' => [
         'name' => [
             'use_env_default' => false,
@@ -13,6 +22,16 @@ return [
             'custom' => 'Laravel Adminer',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Adminer configuration
+    |--------------------------------------------------------------------------
+    |
+    | These set of options controls the status of Adminer route
+    | registration and default style settings.
+    |
+    */
 
     'manager' => [
         'enabled' => true,
@@ -28,6 +47,48 @@ return [
 
         'style' => 'vendor/laravel-adminer/styles/pepa-linha/adminer.css',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Adminer Editor configuration
+    |--------------------------------------------------------------------------
+    |
+    | These set of options controls the status of Adminer Editor route
+    | registration, connection parameters and default style settings.
+    |
+    */
+
+    'editor' => [
+        'enabled' => false,
+
+        'parameters' => [
+            'connection' => env('DB_CONNECTION', null),
+            'database' => env('DB_DATABASE', null),
+            'host' => env('DB_HOST', null),
+            'port' => env('DB_PORT', null),
+        ],
+
+        'route' => [
+            'name' => 'adminer.editor.index',
+            'path' => 'adminer/editor',
+
+            'middleware' => [
+                'web',
+            ],
+        ],
+
+        'style' => 'vendor/laravel-adminer/styles/pepa-linha/adminer.css',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Plugins
+    |--------------------------------------------------------------------------
+    |
+    | Plugins are used to extend Adminer and Adminer Editor,
+    | @see https://www.adminer.org/plugins
+    |
+    */
 
     'plugins' => [
         'database-hide' => [

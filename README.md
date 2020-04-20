@@ -1,6 +1,13 @@
-# Laravel Adminer
+<h1 align="center">
+    <br>
+    <img src="docs/logo.png" alt="Laravel Adminer" width="200">
+    <br>
+    <br>
+    Laravel Adminer
+    <br>
+</h1>
 
-> [Adminer](https://www.adminer.org) database management tool for your [Laravel](https://laravel.com) application.
+<h4 align="center"><a href="https://www.adminer.org" target="_blank">Adminer</a> database management tool for your <a href="https://laravel.com" target="_blank">Laravel</a> application.</h4>
 
 ## Table of Contents
 
@@ -26,6 +33,7 @@ This package is a wrapper around [Adminer](https://www.adminer.org), it makes [A
 ## Features
 
 - Current [Adminer](https://www.adminer.org) version used is: `4.7.6`.
+- Supports both [Adminer](https://www.adminer.org) and [Adminer Editor](https://www.adminer.org/editor).
 - Plugins are integrated easily.
 - Alternative designs shipped with this package.
 - Custom designs are also supported and can be added easily.
@@ -36,20 +44,20 @@ This package is a wrapper around [Adminer](https://www.adminer.org), it makes [A
 Install the package via composer:
 
 ```bash
-    composer require moharrum/laravel-adminer
+composer require moharrum/laravel-adminer
 ```
 
 Edit `config/app.php`, add package service provider (ignore this step if you have package discovery enabled):
 ```php
-    'providers' => [
-        Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider::class,
-    ]
+'providers' => [
+    Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider::class,
+]
 ```
 
 Finally, publish the configuration file:
 
 ```php
-    php artisan vendor:publish --provider="Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider"
+php artisan vendor:publish --provider="Moharrum\LaravelAdminer\Providers\LaravelAdminerServiceProvider"
 ```
 
 ## CSRF token middleware
@@ -60,19 +68,19 @@ If you encounter a `TokenMismatchException`  when opening the page for the first
 
 - **Application name**
 
-    You may specify if you want Laravel Adminer to display application name from `.env` file or you may specify a custom value:
+    You may specify if you want Laravel Adminer to display application name from `.env` file or a custom value:
 
 ```php
-    'application_defaults' => [
-        'name' => [
-            'use_env_default' => false,
+'application_defaults' => [
+    'name' => [
+        'use_env_default' => false,
 
-            'custom' => 'Laravel Adminer',
-        ],
+        'custom' => 'Laravel Adminer',
     ],
+],
 ```
 
-- **Manager**
+- **Adminer Manager**
 
     `enabled` is used to enable or disable automatic route registration, if you wish to register your routes manually, set `enabled` to `false`. Additionally, you must specify route `name` and `path` in the `route` section. Optionally, you may specify an alternative design in the `style` section.
 
@@ -91,6 +99,34 @@ If you encounter a `TokenMismatchException`  when opening the page for the first
 
         'style' => 'vendor/laravel-adminer/styles/pepa-linha/adminer.css',
     ],
+```
+
+- **Adminer Editor**
+
+    > Adminer Editor is both easy-to-use and user-friendly database data editing tool written in PHP. It is suitable for common users, as it provides high-level data manipulation.
+
+```php
+'editor' => [
+    'enabled' => false,
+
+    'parameters' => [
+        'connection' => env('DB_CONNECTION', null),
+        'database' => env('DB_DATABASE', null),
+        'host' => env('DB_HOST', null),
+        'port' => env('DB_PORT', null),
+    ],
+
+    'route' => [
+        'name' => 'adminer.editor.index',
+        'path' => 'adminer/editor',
+
+        'middleware' => [
+            'web',
+        ],
+    ],
+
+    'style' => 'vendor/laravel-adminer/styles/pepa-linha/adminer.css',
+],
 ```
 
 - **Plugins**
@@ -171,35 +207,6 @@ If you encounter a `TokenMismatchException`  when opening the page for the first
 ## Available designs
 
 To view all designs with screenshots [click here](docs/DESIGNS.md).
-
-- **arcs-material**
-- **brade**
-- **bueltge**
-- **cvicebni-ubor**
-- **esterka**
-- **flat**
-- **galkaev**
-- **haeckel**
-- **hever**
-- **jukin**
-- **kahi**
-- **konya**
-- **lucas-sandery**
-- **mancave**
-- **mancave-hever**
-- **mvt**
-- **nette**
-- **ng9**
-- **nicu**
-- **pappu687**
-- **paranoiq**
-- **pepa-linha**
-- **pepa-linha-dark**
-- **pilot**
-- **pokorny**
-- **price**
-- **rmsoft**
-- **rmsoft_blue**
 
 ## License
 

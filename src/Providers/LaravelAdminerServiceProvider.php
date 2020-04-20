@@ -50,13 +50,23 @@ class LaravelAdminerServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     * Bind routes automatically if this option is enabled in the configuration file.
+     *
+     * @return void
+     */
     protected function bindRoutesAutomatically(): void
     {
         $this->bindManagerRoutes();
 
-        // $this->bindEditorRoutes();
+        $this->bindEditorRoutes();
     }
 
+    /**
+     * Binds manager routes.
+     *
+     * @return void
+     */
     protected function bindManagerRoutes(): void
     {
         if (config('laravel-adminer.manager.enabled')) {
@@ -72,6 +82,11 @@ class LaravelAdminerServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Binds editor routes.
+     *
+     * @return void
+     */
     protected function bindEditorRoutes(): void
     {
         if (config('laravel-adminer.editor.enabled')) {
