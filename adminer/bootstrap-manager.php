@@ -195,4 +195,4 @@ function adminer_object()
 }
 
 // include original Adminer
-require __DIR__ . DIRECTORY_SEPARATOR . 'manager' . DIRECTORY_SEPARATOR . 'adminer-4.7.6.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'manager' . DIRECTORY_SEPARATOR . 'adminer-4.7.7.php';

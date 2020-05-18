@@ -214,4 +214,4 @@ function adminer_object()
 }
 
 // include original Adminer
-include __DIR__ . DIRECTORY_SEPARATOR . 'editor' . DIRECTORY_SEPARATOR . 'editor-4.7.6.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'editor' . DIRECTORY_SEPARATOR . 'editor-4.7.7.php';

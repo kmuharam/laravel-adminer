@@ -9,6 +9,11 @@
 
 <h4 align="center"><a href="https://www.adminer.org" target="_blank">Adminer</a> database management tool for your <a href="https://laravel.com" target="_blank">Laravel</a> application.</h4>
 
+<p align="center">
+    <img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/v/tag/moharrum/laravel-adminer?label=Stable%20release&style=flat-square">
+    <img alt="GitHub" src="https://img.shields.io/github/license/moharrum/laravel-adminer?style=flat-square">
+</p>
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -32,7 +37,7 @@ This package is a wrapper around [Adminer](https://www.adminer.org), it makes [A
 
 ## Features
 
-- Current [Adminer](https://www.adminer.org) version used is: `4.7.6`.
+- Current [Adminer](https://www.adminer.org) version used is: `4.7.7`.
 - Supports both [Adminer](https://www.adminer.org) and [Adminer Editor](https://www.adminer.org/editor).
 - Plugins are integrated easily.
 - Alternative designs shipped with this package.
