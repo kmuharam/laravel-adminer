@@ -2,8 +2,9 @@
 
 namespace Moharrum\LaravelAdminer\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Laravel adminer package service provider.
@@ -70,15 +71,28 @@ class LaravelAdminerServiceProvider extends ServiceProvider
     protected function bindManagerRoutes(): void
     {
         if (config('laravel-adminer.manager.enabled')) {
-            Route::middleware(config('laravel-adminer.manager.route.middleware'))
-                ->namespace($this->packageNamespace)
-                ->prefix(config('laravel-adminer.manager.route.path'))
-                ->group(function () {
-                    Route::any('/', [
-                        'as' => config('laravel-adminer.manager.route.name'),
-                        'uses' => 'AdminerController@manager',
-                    ]);
-                });
+            if (version_compare(App::version(), '7.7.0') >= 0) {
+                Route::middleware(config('laravel-adminer.manager.route.middleware'))
+                    ->namespace($this->packageNamespace)
+                    ->prefix(config('laravel-adminer.manager.route.path'))
+                    ->withoutMiddleware(['csrf'])
+                    ->group(function () {
+                        Route::any('/', [
+                            'as' => config('laravel-adminer.manager.route.name'),
+                            'uses' => 'AdminerController@manager',
+                        ]);
+                    });
+            } else {
+                Route::middleware(config('laravel-adminer.manager.route.middleware'))
+                    ->namespace($this->packageNamespace)
+                    ->prefix(config('laravel-adminer.manager.route.path'))
+                    ->group(function () {
+                        Route::any('/', [
+                            'as' => config('laravel-adminer.manager.route.name'),
+                            'uses' => 'AdminerController@manager',
+                        ]);
+                    });
+            }
         }
     }
 
@@ -90,15 +104,28 @@ class LaravelAdminerServiceProvider extends ServiceProvider
     protected function bindEditorRoutes(): void
     {
         if (config('laravel-adminer.editor.enabled')) {
-            Route::middleware(config('laravel-adminer.editor.route.middleware'))
-                ->namespace($this->packageNamespace)
-                ->prefix(config('laravel-adminer.editor.route.path'))
-                ->group(function () {
-                    Route::any('/', [
-                        'as' => config('laravel-adminer.editor.route.name'),
-                        'uses' => 'AdminerController@editor',
-                    ]);
-                });
+            if (version_compare(App::version(), '7.7.0') >= 0) {
+                Route::middleware(config('laravel-adminer.editor.route.middleware'))
+                    ->namespace($this->packageNamespace)
+                    ->prefix(config('laravel-adminer.editor.route.path'))
+                    ->withoutMiddleware(['csrf'])
+                    ->group(function () {
+                        Route::any('/', [
+                            'as' => config('laravel-adminer.editor.route.name'),
+                            'uses' => 'AdminerController@editor',
+                        ]);
+                    });
+            } else {
+                Route::middleware(config('laravel-adminer.editor.route.middleware'))
+                    ->namespace($this->packageNamespace)
+                    ->prefix(config('laravel-adminer.editor.route.path'))
+                    ->group(function () {
+                        Route::any('/', [
+                            'as' => config('laravel-adminer.editor.route.name'),
+                            'uses' => 'AdminerController@editor',
+                        ]);
+                    });
+            }
         }
     }
 }
